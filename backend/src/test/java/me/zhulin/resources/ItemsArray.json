@@ -1,0 +1,22 @@
+[
+  {
+    "productId": 2321,
+    "productName": "book",
+    "productDescription": "test",
+    "productIcon": "smth",
+    "categoryType": 1,
+    "productPrice": 1.5,
+    "productStock": 5,
+    "count": 1222
+  },
+  {
+    "productId": 2131,
+    "productName": "food",
+    "productDescription": "test",
+    "productIcon": "smth",
+    "categoryType": 1,
+    "productPrice": 1.5,
+    "productStock": 5,
+    "count": 1222
+  }
+]
