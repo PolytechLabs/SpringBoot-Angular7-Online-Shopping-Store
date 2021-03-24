@@ -40,7 +40,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
-import static me.zhulin.shopapi.api.CartControllerTest.asJsonString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
