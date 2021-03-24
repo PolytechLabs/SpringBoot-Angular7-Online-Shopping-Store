@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import me.zhulin.shopapi.entity.ProductCategory;
 import me.zhulin.shopapi.entity.ProductInOrder;
 import me.zhulin.shopapi.entity.User;
+import me.zhulin.shopapi.exception.MyException;
 import me.zhulin.shopapi.repository.ProductCategoryRepository;
 import me.zhulin.shopapi.service.CartService;
 import me.zhulin.shopapi.service.CategoryService;
@@ -90,5 +91,13 @@ public class CategoryServiceTest {
 
         assertEquals(productCategory.getCategoryId(), res.getCategoryId());
 
+    }
+
+    @Test(expected = MyException.class)
+    public void findUnsuccessfulTest() throws Exception {
+        Mockito
+                .when(productCategoryRepository.findByCategoryType(111))
+                .thenThrow(MyException.class);
+        categoryService.findByCategoryType(111);
     }
 }
