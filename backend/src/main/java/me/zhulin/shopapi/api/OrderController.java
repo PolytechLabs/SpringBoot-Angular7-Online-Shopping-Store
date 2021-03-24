@@ -60,6 +60,11 @@ public class OrderController {
         return ResponseEntity.ok(orderService.finish(orderId));
     }
 
+    @PatchMapping("/order/finishOrder/{id}")
+    public ResponseEntity<OrderMain> finishOrder(@PathVariable("id") Long orderId) {
+        return ResponseEntity.ok(orderService.finish(orderId));
+    }
+
     @GetMapping("/order/{id}")
     public ResponseEntity show(@PathVariable("id") Long orderId, Authentication authentication) {
         boolean isCustomer = authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
