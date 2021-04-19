@@ -58,6 +58,7 @@ public class CategoryServiceTest {
         List<ProductCategory> res2 = categoryService.findAll();
 
         assertEquals(res1.get(0).getCategoryId(), res2.get(0).getCategoryId());
+        assertEquals(res1.get(0).getCategoryType(), res2.get(0).getCategoryType());
 
     }
 
@@ -74,6 +75,7 @@ public class CategoryServiceTest {
         ProductCategory res = categoryService.findByCategoryType(1);
 
         assertEquals(productCategory.getCategoryId(), res.getCategoryId());
+        assertEquals(productCategory.getCategoryType(), res.getCategoryType());
 
     }
 
@@ -90,6 +92,7 @@ public class CategoryServiceTest {
         ProductCategory res = categoryService.save(productCategory);
 
         assertEquals(productCategory.getCategoryId(), res.getCategoryId());
+        assertEquals(productCategory.getCategoryType(), res.getCategoryType());
 
     }
 
@@ -100,4 +103,5 @@ public class CategoryServiceTest {
                 .thenThrow(MyException.class);
         categoryService.findByCategoryType(111);
     }
+
 }

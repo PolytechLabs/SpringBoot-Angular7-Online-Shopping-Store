@@ -1,6 +1,5 @@
 package me.zhulin.shopapi.service.impl;
 
-import me.zhulin.shopapi.entity.ProductInOrder;
 import me.zhulin.shopapi.entity.ProductInfo;
 import me.zhulin.shopapi.enums.ResultEnum;
 import me.zhulin.shopapi.exception.MyException;

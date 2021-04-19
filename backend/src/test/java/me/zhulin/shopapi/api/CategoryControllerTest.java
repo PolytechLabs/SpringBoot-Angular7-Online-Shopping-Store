@@ -19,14 +19,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Function;
 
+import static java.util.Collections.EMPTY_LIST;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -57,6 +61,7 @@ public class CategoryControllerTest
     {
         ProductCategory productCategory = new ProductCategory();
         productCategory.setCategoryId(1111);
+        productCategory.setCategoryName("Food");
 
 
         Page<ProductInfo> productInCategory = new Page<ProductInfo>()
@@ -64,7 +69,7 @@ public class CategoryControllerTest
             @Override
             public int getTotalPages()
             {
-                return 0;
+                return 1;
             }
 
             @Override
@@ -100,7 +105,12 @@ public class CategoryControllerTest
             @Override
             public List<ProductInfo> getContent()
             {
-                return null;
+                ProductInfo productInfo = new ProductInfo();
+                productInfo.setProductName("Chicken");
+                productInfo.setCategoryType(1);
+                List<ProductInfo> listt = new ArrayList<>();
+                listt.add(productInfo);
+                return listt;
             }
 
             @Override
@@ -161,7 +171,7 @@ public class CategoryControllerTest
         PageRequest request = PageRequest.of(1, 1);
 
         var tmp = new CategoryPage("", productInCategory);
-        tmp.setCategory("Books");
+        tmp.setCategory("Food");
 
 
         Mockito.when(productService.findAllInCategory(1, request)).thenReturn(productInCategory);
@@ -171,6 +181,10 @@ public class CategoryControllerTest
 
         this.mvc.perform(get("/category/1"))
                 .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.category").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.category").value("Food"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.page.content.[0].productName").value("Chicken"))
+                .andDo(print())
                 .andReturn();
     }
 

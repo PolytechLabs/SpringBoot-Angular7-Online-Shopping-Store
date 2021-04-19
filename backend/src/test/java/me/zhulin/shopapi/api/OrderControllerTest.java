@@ -17,6 +17,7 @@ import me.zhulin.shopapi.service.UserService;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.PropertyEditorRegistry;
@@ -40,7 +41,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -85,6 +88,10 @@ public class OrderControllerTest
                 .andExpect(status().isOk())
                 .andReturn();
 
+        ArgumentCaptor<Long> argumentCaptor = ArgumentCaptor.forClass(Long.class);
+
+        verify(orderService).finish(argumentCaptor.capture());
+        assertEquals(orderMain.getOrderId(), argumentCaptor.getValue());
     }
 
 

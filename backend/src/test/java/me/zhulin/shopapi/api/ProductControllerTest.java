@@ -15,6 +15,7 @@ import me.zhulin.shopapi.service.UserService;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.PropertyEditorRegistry;
@@ -27,6 +28,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.validation.BindingResult;
@@ -40,7 +42,11 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -96,6 +102,10 @@ public class ProductControllerTest
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
+        ArgumentCaptor<ProductInfo> argumentCaptor = ArgumentCaptor.forClass(ProductInfo.class);
+
+        verify(productService).update(argumentCaptor.capture());
+        assertEquals(productInfo, argumentCaptor.getValue());
 
     }
 
@@ -336,6 +346,7 @@ public class ProductControllerTest
         };
 
 
+        ArgumentCaptor<ProductInfo> argumentCaptor = ArgumentCaptor.forClass(ProductInfo.class);
         Mockito.when(productService.findOne("1222")).thenReturn(null);
 
         this.mvc.perform(MockMvcRequestBuilders.post("/seller/product/new")
@@ -344,6 +355,9 @@ public class ProductControllerTest
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
+
+        verify(productService).save(argumentCaptor.capture());
+        assertEquals(productInfo, argumentCaptor.getValue());
 
     }
 
@@ -391,6 +405,12 @@ public class ProductControllerTest
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
+
+        ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);
+
+        verify(productService).delete(argumentCaptor.capture());
+        assertEquals(productInfo.getProductId(), argumentCaptor.getValue());
+
 
     }
 
