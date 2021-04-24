@@ -33,7 +33,7 @@
             </p>
           </div>
           <button type="submit" [disabled]="!form.form.valid" *ngIf="productInfo?.productStatus == 0; else offBlock"
-                  class="btn btn-primary btn-lg"
+                  class="btn btn-primary btn-lg" id="addToCart"
           >Add to Cart
           </button>
           <ng-template #offBlock><a class="btn btn-secondary btn-lg disabled">Unavailable</a></ng-template>

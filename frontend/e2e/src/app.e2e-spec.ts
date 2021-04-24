@@ -3,10 +3,12 @@ import { RegistPage} from "./regist.po";
 import {browser, by, element} from "protractor";
 import {AuthenticationPageObject} from "./authentification.page";
 import {LoginPageObject} from "./login";
+import {CartPageObject} from "./cart.po";
 
 describe('workspace-project App', () => {
   let page: AppPage;
   let registPage: RegistPage;
+  let cartPage: CartPageObject;
   let loginPage: LoginPageObject;
   let pageObject = new RegistPage();
   let authPageObject = new AuthenticationPageObject();
@@ -14,6 +16,7 @@ describe('workspace-project App', () => {
   beforeEach(() => {
     browser.waitForAngularEnabled(false);
     page = new AppPage();
+    cartPage = new CartPageObject();
     registPage = new RegistPage();
   });
 
@@ -27,8 +30,8 @@ describe('workspace-project App', () => {
     expect(pageObject.getTitle()).toEqual('Sign Up');
   });
 
-//Проверка возможности регистрации
-  it('should validate the register data', () => {
+  //Проверка возможности регистрации
+  it('should validate the registration', () => {
     authPageObject.goToLoginPage();
     authPageObject.goToRegisterPage();
     pageObject.setEmail("email@email");
@@ -42,6 +45,13 @@ describe('workspace-project App', () => {
     expect(page.getTitleText()).toEqual('Sign In');
   });
 
-
+  //Пользователь не может оформить заказ, если он не авторизован
+  it('should validate that user is unauthentificate and cant create order', () => {
+    page.goToProduct()
+    page.submitForm()
+    page.goToCart()
+    cartPage.submitStuff()
+    expect(page.getTitleText()).toEqual('Sign In');
+  });
 
 });
