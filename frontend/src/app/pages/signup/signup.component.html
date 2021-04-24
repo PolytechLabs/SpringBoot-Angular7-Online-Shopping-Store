@@ -1,4 +1,4 @@
-<h1 align="center" class="display-4 mb-5">Sign Up</h1>
+<h1 align="center" class="display-4 mb-5" id="register-title">Sign Up</h1>
 <div style="width:40%; margin: 25px auto" >
   <form #form="ngForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
@@ -56,7 +56,7 @@
         </div>
     </div>
     <div class="form-group">
-      <button type="submit" class="btn btn-lg btn-primary btn-block" [disabled]="!form.form.valid" >Sign Up</button>
+      <button type="submit" class="btn btn-lg btn-primary btn-block" id="submit" [disabled]="!form.form.valid" >Sign Up</button>
     </div>
   </form>
 </div>
