@@ -1,7 +1,7 @@
 <h1 align="center" class="display-4 mb-5">Sign In</h1>
 <div style="width:40%; margin: 25px auto">
 
-    <div class="alert alert-danger" *ngIf="isInvalid">
+    <div class="alert alert-danger" *ngIf="isInvalid" id="invalid">
         Invalid username and password.
     </div>
     <div class="alert alert-info" *ngIf="isLogout">
@@ -37,7 +37,7 @@
         </div>
 
         <div class="form-group">
-            <button [disabled]="!form.form.valid" type="submit" class="btn btn-lg btn-primary btn-block">Sign In</button>
+            <button [disabled]="!form.form.valid" type="submit" class="btn btn-lg btn-primary btn-block" id="login-submit">Sign In</button>
         </div>
     </form>
 
@@ -50,10 +50,10 @@
                     href="javascript:void(0)">customer1</a></td>
             <td><a
                     (click)="fillLoginFields('employee1@email.com','123')"
-                    href="javascript:void(0)">employee1</a></td>
+                    href="javascript:void(0)" >employee1</a></td>
             <td><a
                     (click)="fillLoginFields('manager1@email.com','123')"
-                    href="javascript:void(0)">manager1</a></td>
+                    href="javascript:void(0)" id="manager">manager1</a></td>
         </tr>
     </table>
 

@@ -17,7 +17,12 @@ export class AppPage {
   }
 
   navigateTo() {
-    return browser.get('/');
+    return browser.get('/product');
+  }
+
+  toLogin() {
+    let submitButton = element(by.id('loginpage'));
+    return submitButton.sendKeys(protractor.Key.ENTER);
   }
 
   goToProduct() {
@@ -30,7 +35,7 @@ export class AppPage {
 
   submitForm(): wdpromise.Promise<void> {
     let submitButton = element(by.id('addToCart'));
-    return submitButton.sendKeys(protractor.Key.ENTER);
+    return submitButton.click();
   }
 
   getTitleText() {
@@ -43,6 +48,11 @@ export class AppPage {
 
   submitStuff(): wdpromise.Promise<void> {
     let submitButton = element(by.id('checkout'));
+    return submitButton.sendKeys(protractor.Key.ENTER);
+  }
+
+  getIt(): wdpromise.Promise<void> {
+    let submitButton = element(by.id('getit'));
     return submitButton.sendKeys(protractor.Key.ENTER);
   }
 }

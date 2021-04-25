@@ -49,7 +49,7 @@ export class RegistPage {
   }
 
   submitForm(): wdpromise.Promise<void> {
-    return this.submitButton.sendKeys(protractor.Key.ENTER);
+    return this.submitButton.click();
   }
 
   formIsValid(): wdpromise.Promise<boolean> {
