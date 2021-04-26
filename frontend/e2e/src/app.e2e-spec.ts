@@ -39,20 +39,19 @@ describe('workspace-project App', () => {
     expect(page.getTitleText()).toEqual('Get Whatever You Want!');
   });
 
-  /*//Проверка возможности регистрации
+  //Проверка возможности регистрации
   it('should validate the registration', () => {
     authPageObject.goToLoginPage();
     authPageObject.goToRegisterPage();
-    pageObject.setEmail("email@e");
+    pageObject.setEmail("email@er");
     pageObject.setName("Name");
     pageObject.setPassword("passw");
     pageObject.setPhoneInput("1234");
     pageObject.setAddressInput("address");
     pageObject.submitForm();
     expect(pageObject.formIsValid()).toEqual(true);
-   // authPageObject.goToLoginPage();
     expect(page.getTitleText()).toEqual('Sign In');
-  });*/
+  });
 
   //Нельзя создать еще один аккаунт для уже известной почты
   it('should validate the registration', () => {
@@ -98,7 +97,7 @@ describe('workspace-project App', () => {
     expect(loginPage.getTitleText()).toEqual('Invalid username and password.');
   });
 
-  //Проеврка иизменения данных товара менеджером
+  //Проеврка изменения данных товара менеджером
   it('should check ability of manager to change data', () => {
     authPageObject.goToLoginPage();
     loginPage.setManager();
@@ -106,15 +105,31 @@ describe('workspace-project App', () => {
     productPage.setNewDescription("New description");
     productPage.submitForm();
     expect(productPage.getTitleText()).toEqual('Products');
+    productPage.navigateToEditPage();
+    expect(productPage.getDescription()).toEqual('New description');
   });
 
   //Проеврка на возможность отменить заказ менеджером
   it('should check ability of manager to change data', () => {
-    authPageObject.goToLoginPage();
-    loginPage.setManager();
-
-    expect(loginPage.getTitleText()).toEqual('Invalid username and password.');
+      authPageObject.goToLoginPage();
+      loginPage.setManager();
+      productPage.navigateToOrders();
+      productPage.doCancelOrder();
+      expect(productPage.getStatus()).toEqual('Cenceled');
   });
 
   //Проверка изменения личных данных пользователем
+  it('should check ability of manager to change data', () => {
+    page.navigateTo()
+    page.toLogin()
+    loginPage.setEmail("email@emailru");
+    loginPage.setPassword("123");
+    loginPage.submitForm();
+    productPage.navigateToData();
+    productPage.setNewName("NewName");
+    productPage.setPassword("123");
+    productPage.submitName();
+    productPage.navigateToData();
+    expect(productPage.getName()).toEqual('NewName');
+  });
 });
